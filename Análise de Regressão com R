@@ -25,3 +25,6 @@ Br_21 = Brasileirao_2003_2021[Brasileirao_2003_2021$Ano == 2021,]
 
 Br_21$lm = (-7.6933 + Br_21$Pontuação_Média * 38.3438  -3.1452 * Br_21$`Saldo de Gols...18` + 6.9165 * Br_21$`Gols Pró...19`) #aplicando a formula
 View(Br_21) #observando o resultado
+
+##Dados Retirado do Kaggle
+#Ricardo M. Czekster, “Matches Brazilian Football from 2003 to 2021.” Kaggle, 2021, doi: 10.34740/KAGGLE/DSV/2918347.

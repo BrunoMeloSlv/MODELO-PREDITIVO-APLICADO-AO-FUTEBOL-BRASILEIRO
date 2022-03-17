@@ -1,0 +1,27 @@
+##Modelo de regressão para tentar prever o br 22
+
+install.packages("readxl") #instalando o pacote
+library("readxl") #abrindo o pacote
+
+Brasileirao_2003_2021 <- read_excel("C:/Users/bruno.silva/Desktop/Brasileirao_2003_2021.xlsx", 
+                                    sheet = "Ranking") #importando os dados
+
+View(Brasileirao_2003_2021) #visualizando os dados
+
+Br = Brasileirao_2003_2021[Brasileirao_2003_2021$Ano != 2021,] # retirando 2021 porque ele será utilizado como teste
+View(Br)
+
+Br_2 = Br[,13:20] #selecionando as colunas
+View(Br_2) #visualizando o resultado da nova tabela
+
+lm_Br = lm(Pontuação...13 ~ . , Br_2 ) #fazendo a regressão com o intercepto = a Pontuação e utilizando todos os outros dados como coeficientes
+summary(lm_Br) # verificando o resultado
+
+step_Br = step(lm_Br) #usando o modo step para buscar o melhor resultado da regressão
+
+summary(step_Br) #visualizando os coeficientes
+
+Br_21 = Brasileirao_2003_2021[Brasileirao_2003_2021$Ano == 2021,]
+
+Br_21$lm = (-7.6933 + Br_21$Pontuação_Média * 38.3438  -3.1452 * Br_21$`Saldo de Gols...18` + 6.9165 * Br_21$`Gols Pró...19`) #aplicando a formula
+View(Br_21) #observando o resultado

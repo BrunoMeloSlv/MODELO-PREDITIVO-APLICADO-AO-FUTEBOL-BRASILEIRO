@@ -1,30 +1,41 @@
 ##Modelo de regressão para tentar prever o br 22
 
-install.packages("readxl") #instalando o pacote
-library("readxl") #abrindo o pacote
+library(readxl)
+Brasileirao_R <- read_excel("C:/Users/bruno.silva/Desktop/Estudos/Dash_Previsão_BR/Brasileirao_R.xlsx")
+View(Brasileirao_R)
 
-Brasileirao_2003_2021 <- read_excel("C:/Users/bruno.silva/Desktop/Brasileirao_2003_2021.xlsx", 
-                                    sheet = "Ranking") #importando os dados
+newcolumn = 
+  function(coluna){
+    (coluna  / Brasileirao_R$Partidas)
+    #return(df$nome)
+  }
 
-View(Brasileirao_2003_2021) #visualizando os dados
+Brasileirao_R$Pontuação_Média = newcolumn(Brasileirao_R$Pontuação)
+Brasileirao_R$Vitórias_Média = newcolumn(Brasileirao_R$Vitórias)
+Brasileirao_R$Empates_Média = newcolumn(Brasileirao_R$Empates)
+Brasileirao_R$Derrotas_Média = newcolumn(Brasileirao_R$Derrotas)
+Brasileirao_R$SG_Média = newcolumn(Brasileirao_R$`Saldo de Gols`)
+Brasileirao_R$GP_Média = newcolumn(Brasileirao_R$`Gols Pró`)
+Brasileirao_R$GC_Média = newcolumn(Brasileirao_R$`Gols Contra`)
 
-Br = Brasileirao_2003_2021[Brasileirao_2003_2021$Ano != 2021,] # retirando 2021 porque ele será utilizado como teste
+Br = Brasileirao_R#[Brasileirao_historico$Ano != 2021,] # retirando 2021 porque ele será utilizado como teste
 View(Br)
 
-Br_2 = Br[,13:20] #selecionando as colunas
+Br_2 = Br[,c(4,12:18)] #selecionando as colunas para a regressão
 View(Br_2) #visualizando o resultado da nova tabela
 
-lm_Br = lm(Pontuação...13 ~ . , Br_2 ) #fazendo a regressão com o intercepto = a Pontuação e utilizando todos os outros dados como coeficientes
+lm_Br = lm(Pontuação ~ . , Br_2 ) #fazendo a regressão com o intercepto = a Pontuação e utilizando todos os outros dados como coeficientes
 summary(lm_Br) # verificando o resultado
 
 step_Br = step(lm_Br) #usando o modo step para buscar o melhor resultado da regressão
 
 summary(step_Br) #visualizando os coeficientes
 
-Br_21 = Brasileirao_2003_2021[Brasileirao_2003_2021$Ano == 2021,]
+Br_21 = Brasileirao_historico[Brasileirao_historico$Ano == 2021,]
 
-Br_21$lm = (-7.6933 + Br_21$Pontuação_Média * 38.3438  -3.1452 * Br_21$`Saldo de Gols...18` + 6.9165 * Br_21$`Gols Pró...19`) #aplicando a formula
+Br_21$lm = (-7.6933 + Br_21$Pontuação_Média * 38.3438  -3.1452 * Br_21$SG_Média+ 6.9165 * Br_21$GP_Média) #aplicando a formula
 View(Br_21) #observando o resultado
+
 
 ##Dados Retirado do Kaggle
 #Ricardo M. Czekster, “Matches Brazilian Football from 2003 to 2021.” Kaggle, 2021, doi: 10.34740/KAGGLE/DSV/2918347.

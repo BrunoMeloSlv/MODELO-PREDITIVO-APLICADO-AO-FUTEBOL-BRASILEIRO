@@ -61,26 +61,7 @@ Br_2 = Br[,c(4,12:18)]
 Finalmente podemos rodar o modelo de regressão com os dados e verificar o resultado e já sabemos que um valo maior que 0,05 será estatisticamente insignificante.
 lm_Br = lm(Pontuação ~ . , Br_2 )
 
-Residuals:
-    Min      1Q  Median      3Q     Max 
--5.0735 -2.1687 -1.0271  0.2476 13.5892 
-
-Coefficients: (2 not defined because of singularities)
-                Estimate Std. Error t value Pr(>|t|)    
-(Intercept)       -8.530      3.285  -2.597  0.00979 ** 
-Pontuação_Média   31.995      6.204   5.157 4.13e-07 ***
-Vitórias_Média    20.770     19.535   1.063  0.28840    
-Empates_Média      7.135      7.562   0.943  0.34605    
-Derrotas_Média        NA         NA      NA       NA    
-SG_Média          -3.544      1.456  -2.434  0.01543 *  
-GP_Média           6.902      1.012   6.821 3.78e-11 ***
-GC_Média              NA         NA      NA       NA    
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 3.633 on 364 degrees of freedom
-Multiple R-squared:  0.9183,	Adjusted R-squared:  0.9171 
-F-statistic: 817.7 on 5 and 364 DF,  p-value: < 2.2e-16
+![image](https://user-images.githubusercontent.com/91537585/224540627-b459c61a-3176-442e-81d2-6ac5a9cff047.png)
 
 Perceba que somente Pontuação_Média, SG_Média e GP_Média obtiveram resultados aceitáveis em seu p-valor e por este motivo devemos rodar o stepwise para que ele ache o melhor modelo com essas variáveis. Mas para contextualizar o que aconteceria com esse modelo, vamos aplicar a equação aos dados de 2021 e comparar com o resultado real. Onde tiver NA vamos considerar zero, logo ele não precisa ser calculado já que seria zero qualquer número que multiplique por ele.
 
@@ -95,24 +76,7 @@ Na tabela acima se nota que ele teve uma acertabilidade de 70%, acertando 14 pos
 Deste modo o Santos está a frente do Ceará em quesito de desempate, isso cabe um ajuste manual já que não tem como dizer para o modelo que se os times empatarem vale o critério x ou y. Já no caso do Athletico e São Paulo não tem jeito, pois o modelo estimou este com um ponto a menos que o real e o time paranaense tem duas vitórias a mais que o paulista, não conseguindo contornar, outro erro foi os dois pontos a mais que ele estimou para o bragantino e aumentando sua pontuação em relação ao Corinthians.
 Neste momento vamos aplicar a stepwise e verificar o que o software entende como o melhor modelo que obtenha um melhor resultado com uma menor quantidade de variáveis e o  resultado pode ser observado a seguir.
 
-step_Br = step(lm_Br)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--5.0263 -2.1597 -1.0415  0.2497 13.1348 
-
-Coefficients:
-                Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      -7.6933     2.5883  -2.972  0.00315 ** 
-Pontuação_Média  38.3438     1.7132  22.381  < 2e-16 ***
-SG_Média         -3.1452     1.3154  -2.391  0.01731 *  
-GP_Média          6.9165     0.9624   7.187 3.75e-12 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 3.629 on 366 degrees of freedom
-Multiple R-squared:  0.918,	Adjusted R-squared:  0.9173 
-F-statistic:  1366 on 3 and 366 DF,  p-value: < 2.2e-16
+![image](https://user-images.githubusercontent.com/91537585/224540473-3894c959-c4af-4e3c-9280-f274efadc526.png)
 
 O resultado do Adjusted R-squared:  0.9173 é superior ao obtido com o modelo anterior por 0,02%, foram resultados muito próximo, mas com um menor número de variáveis, o que facilita os cálculos. A equação ficou com o seguinte resultado:
 

@@ -76,7 +76,7 @@ Na tabela acima se nota que ele teve uma acertabilidade de 70%, acertando 14 pos
 Deste modo o Santos está a frente do Ceará em quesito de desempate, isso cabe um ajuste manual já que não tem como dizer para o modelo que se os times empatarem vale o critério x ou y. Já no caso do Athletico e São Paulo não tem jeito, pois o modelo estimou este com um ponto a menos que o real e o time paranaense tem duas vitórias a mais que o paulista, não conseguindo contornar, outro erro foi os dois pontos a mais que ele estimou para o bragantino e aumentando sua pontuação em relação ao Corinthians.
 Neste momento vamos aplicar a stepwise e verificar o que o software entende como o melhor modelo que obtenha um melhor resultado com uma menor quantidade de variáveis e o  resultado pode ser observado a seguir.
 
-![image](https://user-images.githubusercontent.com/91537585/224540473-3894c959-c4af-4e3c-9280-f274efadc526.png)
+![image](https://user-images.githubusercontent.com/91537585/224540848-42998dd8-df26-4214-b1b0-1e3a13705f4a.png)
 
 O resultado do Adjusted R-squared:  0.9173 é superior ao obtido com o modelo anterior por 0,02%, foram resultados muito próximo, mas com um menor número de variáveis, o que facilita os cálculos. A equação ficou com o seguinte resultado:
 
